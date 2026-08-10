@@ -1,0 +1,538 @@
+{
+  "birthday": [
+    {
+      "zone": "Estanque Grande",
+      "title": "El guardián del agua",
+      "lat": 40.41735,
+      "lng": -3.6829,
+      "radius": 180,
+      "points": 150,
+      "icon": "🌊",
+      "kind": "quiz",
+      "question": "¿A qué monarca está dedicado el gran monumento frente al Estanque?",
+      "options": [
+        "Carlos III",
+        "Alfonso XII",
+        "Felipe IV"
+      ],
+      "answer": 1,
+      "hint": "El nombre empieza por Alfonso.",
+      "audio": "Primera misión. Llegad al Estanque Grande, detened la bici en un lugar seguro y observad el monumento principal."
+    },
+    {
+      "zone": "Alfonso XII",
+      "title": "Foto estatua viviente",
+      "lat": 40.4172,
+      "lng": -3.68235,
+      "radius": 170,
+      "points": 180,
+      "icon": "📸",
+      "kind": "image",
+      "task": "Haz una foto con al menos 3 miembros del equipo, el monumento visible al fondo y todos levantando un brazo.",
+      "criteria": [
+        "at least 3 people",
+        "a large classical monument in the background",
+        "all visible participants raise one arm"
+      ],
+      "hint": "Alejaos un poco para que entren las personas y el monumento.",
+      "audio": "Convertíos en estatuas vivientes. Necesitamos tres personas, el monumento al fondo y todos con un brazo levantado."
+    },
+    {
+      "zone": "Palacio de Cristal",
+      "title": "Memoria relámpago",
+      "lat": 40.41362,
+      "lng": -3.68134,
+      "radius": 180,
+      "points": 160,
+      "icon": "🧠",
+      "kind": "memory",
+      "sequence": "🦆 🚲 🌳 ⭐ 🍊 🕶️",
+      "question": "¿Qué símbolo estaba justo después de la estrella?",
+      "options": [
+        "🍊 Naranja",
+        "🌳 Árbol",
+        "🕶️ Gafas"
+      ],
+      "answer": 0,
+      "hint": "Era algo del color corporativo de Diverbikes.",
+      "audio": "Mirad la secuencia durante unos segundos. Después desaparecerá y tendréis que recordar qué había después de la estrella."
+    },
+    {
+      "zone": "Ángel Caído",
+      "title": "El número prohibido",
+      "lat": 40.4112,
+      "lng": -3.68228,
+      "radius": 180,
+      "points": 170,
+      "icon": "😈",
+      "kind": "text",
+      "question": "Soy par, mayor que 0, menor que 4. ¿Quién soy?",
+      "answerText": "2",
+      "hint": "Solo hay una posibilidad.",
+      "audio": "Un acertijo rápido. Soy par, mayor que cero y menor que cuatro. ¿Qué número soy?"
+    },
+    {
+      "zone": "Rosaleda",
+      "title": "Vídeo grito de equipo",
+      "lat": 40.41072,
+      "lng": -3.68443,
+      "radius": 210,
+      "points": 220,
+      "icon": "🎬",
+      "kind": "video",
+      "task": "Grabad un vídeo de 5–12 s: al menos 3 personas deben aparecer, decir o representar el nombre del equipo y terminar con todos señalando hacia arriba.",
+      "criteria": [
+        "at least 3 people visible across sampled frames",
+        "team-like coordinated action",
+        "participants end with an upward pointing gesture"
+      ],
+      "hint": "Que todos entren bien en plano y terminad señalando arriba.",
+      "audio": "Ahora vídeo. Entre cinco y doce segundos. Deben aparecer al menos tres personas y terminar todos señalando hacia arriba."
+    },
+    {
+      "zone": "Parterre",
+      "title": "Caza naranja",
+      "lat": 40.41536,
+      "lng": -3.687,
+      "radius": 220,
+      "points": 140,
+      "icon": "🟠",
+      "kind": "image",
+      "task": "Fotografía 3 objetos o elementos diferentes de color naranja en una sola imagen. No vale editar la foto.",
+      "criteria": [
+        "three distinct orange-colored objects or elements visible in one image"
+      ],
+      "hint": "Ropa, accesorios u objetos del entorno pueden servir.",
+      "audio": "Encontrad tres elementos naranjas diferentes y conseguid que aparezcan juntos en una sola foto."
+    },
+    {
+      "zone": "Paseo de las Estatuas",
+      "title": "Mímica imposible",
+      "lat": 40.41602,
+      "lng": -3.68615,
+      "radius": 200,
+      "points": 190,
+      "icon": "🎭",
+      "kind": "video",
+      "task": "Vídeo de 6–15 s: una persona hace de estatua inmóvil y el resto intenta hacerla reír sin tocarla.",
+      "criteria": [
+        "one person remains statue-like and mostly still",
+        "at least one other participant performs playful gestures",
+        "no visible physical pushing or unsafe action"
+      ],
+      "hint": "Gestos, caras y baile; sin tocar a la estatua.",
+      "audio": "Una persona será estatua. Los demás tienen que intentar hacerla reír sin tocarla."
+    },
+    {
+      "zone": "Estanque ochavado",
+      "title": "Código partido",
+      "lat": 40.41455,
+      "lng": -3.6853,
+      "radius": 200,
+      "points": 180,
+      "icon": "🔐",
+      "kind": "text",
+      "question": "Ordena estas piezas sin espacios: RE · TI · RO · 24",
+      "answerText": "RETIRO24",
+      "hint": "Primero forma RETIRO y añade 24.",
+      "audio": "Ordenad las piezas RE, TI, RO y veinticuatro. Escribid la clave sin espacios."
+    },
+    {
+      "zone": "Cecilio Rodríguez",
+      "title": "Foto portada",
+      "lat": 40.41503,
+      "lng": -3.6786,
+      "radius": 220,
+      "points": 240,
+      "icon": "🔥",
+      "kind": "image",
+      "task": "Cread una foto que parezca la portada de una película de aventuras: mínimo 3 personas, una pose heroica y espacio libre en la parte superior para un título.",
+      "criteria": [
+        "at least 3 people",
+        "heroic or adventure-like group pose",
+        "clear empty space near the top of the composition"
+      ],
+      "hint": "Colocaos en la mitad inferior y mirad todos en la misma dirección.",
+      "audio": "Quiero una portada de película. Tres personas como mínimo, pose heroica y espacio arriba para poner el título."
+    },
+    {
+      "zone": "Meta Diverbikes",
+      "title": "El cofre final",
+      "lat": 40.41905,
+      "lng": -3.67815,
+      "radius": 250,
+      "points": 300,
+      "icon": "🏆",
+      "kind": "text",
+      "question": "Código final: combina los números clave 7, 3, 9 y 2.",
+      "answerText": "7392",
+      "hint": "En el mismo orden en que los has visto.",
+      "audio": "Última misión. Combina los cuatro números clave y abre el cofre."
+    }
+  ],
+  "family": [
+    {
+      "zone": "Estanque Grande",
+      "title": "Padres vs hijos: Madrid",
+      "lat": 40.41735,
+      "lng": -3.6829,
+      "radius": 180,
+      "points": 160,
+      "icon": "⚔️",
+      "kind": "quiz",
+      "question": "Ronda hijos: ¿cuál de estos animales es habitual ver en el estanque?",
+      "options": [
+        "Pingüinos",
+        "Patos",
+        "Flamencos salvajes"
+      ],
+      "answer": 1,
+      "hint": "Hace cuac.",
+      "audio": "Empieza Padres contra Hijos. Esta pregunta es para los hijos."
+    },
+    {
+      "zone": "Alfonso XII",
+      "title": "¿Quién imita mejor?",
+      "lat": 40.4172,
+      "lng": -3.68235,
+      "radius": 170,
+      "points": 210,
+      "icon": "😂",
+      "kind": "video",
+      "task": "Vídeo 5–12 s: una persona adulta imita una estatua y un menor hace de director dando una orden divertida. Ambos deben aparecer.",
+      "criteria": [
+        "an adult and a child or teenager are both visible",
+        "one participant holds a statue-like pose",
+        "the other participant appears to direct or cue the pose"
+      ],
+      "hint": "Que ambos salgan claramente en el encuadre.",
+      "audio": "Ahora cambia el mando. Un menor dirige y un adulto se convierte en estatua."
+    },
+    {
+      "zone": "Palacio de Cristal",
+      "title": "Memoria generacional",
+      "lat": 40.41362,
+      "lng": -3.68134,
+      "radius": 180,
+      "points": 180,
+      "icon": "👀",
+      "kind": "memory",
+      "sequence": "📼 📱 ☎️ 🎮 💿 📸",
+      "question": "¿Qué objeto estaba entre el móvil y la consola?",
+      "options": [
+        "☎️ Teléfono",
+        "💿 CD",
+        "📼 Cinta"
+      ],
+      "answer": 0,
+      "hint": "Es un aparato para llamar de otra época.",
+      "audio": "Atención a la secuencia generacional. Después os preguntaré qué había entre el móvil y la consola."
+    },
+    {
+      "zone": "Ángel Caído",
+      "title": "Apuesta familiar",
+      "lat": 40.4112,
+      "lng": -3.68228,
+      "radius": 180,
+      "points": 200,
+      "icon": "🎲",
+      "kind": "quiz",
+      "question": "¿Queréis jugar seguro o arriesgar? El reto real es: ¿cuánto es 7×8?",
+      "options": [
+        "54",
+        "56",
+        "64"
+      ],
+      "answer": 1,
+      "hint": "Siete grupos de ocho.",
+      "audio": "Reto de apuesta familiar. La pregunta vale doscientos puntos."
+    },
+    {
+      "zone": "Rosaleda",
+      "title": "Foto imposible",
+      "lat": 40.41072,
+      "lng": -3.68443,
+      "radius": 210,
+      "points": 220,
+      "icon": "🤳",
+      "kind": "image",
+      "task": "Foto con toda la familia visible haciendo 3 alturas diferentes: alguien agachado, alguien de pie y alguien con brazos elevados.",
+      "criteria": [
+        "a family or mixed-age group visible",
+        "three distinct pose heights: crouched or low, standing, and arms raised high"
+      ],
+      "hint": "Organizad primero las tres alturas y luego haced la foto.",
+      "audio": "Toda la familia en una sola foto, pero a tres alturas diferentes."
+    },
+    {
+      "zone": "Parterre",
+      "title": "Detective de generaciones",
+      "lat": 40.41536,
+      "lng": -3.687,
+      "radius": 220,
+      "points": 170,
+      "icon": "🕵️",
+      "kind": "text",
+      "question": "Escribe una palabra que una estas tres pistas: parque + familia + ruedas.",
+      "answerText": "BICI",
+      "accepted": [
+        "BICI",
+        "BICICLETA"
+      ],
+      "hint": "Es el vehículo más obvio para recorrer el parque.",
+      "audio": "Buscad una palabra que conecte parque, familia y ruedas."
+    },
+    {
+      "zone": "Paseo de las Estatuas",
+      "title": "Relevo de voces",
+      "lat": 40.41602,
+      "lng": -3.68615,
+      "radius": 200,
+      "points": 200,
+      "icon": "🎙️",
+      "kind": "voice",
+      "question": "Di en voz alta: «Familia Diverbikes preparada para el reto».",
+      "contains": [
+        "familia",
+        "preparada",
+        "reto"
+      ],
+      "hint": "Puedes usar el botón de micrófono y repetir la frase.",
+      "audio": "Usad la voz. Decid: Familia Diverbikes preparada para el reto."
+    },
+    {
+      "zone": "Cecilio Rodríguez",
+      "title": "Director de cine",
+      "lat": 40.41503,
+      "lng": -3.6786,
+      "radius": 220,
+      "points": 240,
+      "icon": "🎥",
+      "kind": "video",
+      "task": "Vídeo 6–15 s: representad una mini escena en la que la familia descubre un tesoro invisible y todos reaccionan al final.",
+      "criteria": [
+        "multiple family/group members visible",
+        "a coordinated discovery or surprise reaction",
+        "clear group reaction near the end"
+      ],
+      "hint": "Mirad todos al mismo punto y reaccionad juntos.",
+      "audio": "Rodad una mini escena: encontráis un tesoro invisible y todos reaccionáis a la vez."
+    },
+    {
+      "zone": "Estanque ochavado",
+      "title": "Pacto secreto",
+      "lat": 40.41455,
+      "lng": -3.6853,
+      "radius": 200,
+      "points": 190,
+      "icon": "🤝",
+      "kind": "image",
+      "task": "Foto de un gesto de equipo familiar: todas las manos visibles juntas en el centro, como antes de un partido.",
+      "criteria": [
+        "multiple hands from a group placed together in the center",
+        "team huddle or pact gesture"
+      ],
+      "hint": "Solo manos y parte del grupo bastan si el gesto se entiende.",
+      "audio": "Haced un pacto familiar. Todas las manos al centro y foto."
+    },
+    {
+      "zone": "Meta Diverbikes",
+      "title": "Final familia",
+      "lat": 40.41905,
+      "lng": -3.67815,
+      "radius": 250,
+      "points": 300,
+      "icon": "🥇",
+      "kind": "text",
+      "question": "Escribe la palabra que resume la única forma de ganar esta final:",
+      "answerText": "EQUIPO",
+      "accepted": [
+        "EQUIPO",
+        "TEAM"
+      ],
+      "hint": "No gana una sola persona.",
+      "audio": "Final. ¿Qué palabra resume la única forma de ganar juntos?"
+    }
+  ],
+  "corporate": [
+    {
+      "zone": "Estanque Grande",
+      "title": "Brand Sprint",
+      "lat": 40.41735,
+      "lng": -3.6829,
+      "radius": 180,
+      "points": 170,
+      "icon": "🚀",
+      "kind": "voice",
+      "question": "Decid un lema de equipo de máximo 8 palabras. Debe incluir «juntos» o «equipo».",
+      "containsAny": [
+        "juntos",
+        "equipo"
+      ],
+      "hint": "Corto, memorable y con una de las dos palabras.",
+      "audio": "Tenéis treinta segundos para crear vuestro lema de equipo. Debe incluir juntos o equipo."
+    },
+    {
+      "zone": "Alfonso XII",
+      "title": "Comunicación 20 segundos",
+      "lat": 40.4172,
+      "lng": -3.68235,
+      "radius": 170,
+      "points": 220,
+      "icon": "🗣️",
+      "kind": "video",
+      "task": "Vídeo 8–20 s: una persona describe una pose sin demostrarla y los demás la ejecutan. Deben aparecer al menos 3 personas.",
+      "criteria": [
+        "at least 3 people visible",
+        "one person appears to give verbal or gestural instructions",
+        "other participants execute a coordinated pose"
+      ],
+      "hint": "El líder explica; no debe colocarlos físicamente.",
+      "audio": "Una persona explica una pose sin demostrarla y el resto debe ejecutarla."
+    },
+    {
+      "zone": "Palacio de Cristal",
+      "title": "Riesgo o recompensa",
+      "lat": 40.41362,
+      "lng": -3.68134,
+      "radius": 180,
+      "points": 230,
+      "icon": "📈",
+      "kind": "quiz",
+      "question": "Decisión rápida: un proyecto tiene 60% de probabilidad de ganar 300 puntos y 40% de perder 100. ¿Cuál es su valor esperado?",
+      "options": [
+        "140 puntos",
+        "180 puntos",
+        "220 puntos"
+      ],
+      "answer": 0,
+      "hint": "0,6×300 menos 0,4×100.",
+      "audio": "Reto de estrategia. Calculad el valor esperado de una decisión con riesgo."
+    },
+    {
+      "zone": "Ángel Caído",
+      "title": "Mensaje bajo presión",
+      "lat": 40.4112,
+      "lng": -3.68228,
+      "radius": 180,
+      "points": 210,
+      "icon": "⏱️",
+      "kind": "text",
+      "question": "Descifra: COLABORA + CIÓN. Escribe la palabra completa.",
+      "answerText": "COLABORACION",
+      "accepted": [
+        "COLABORACION",
+        "COLABORACIÓN"
+      ],
+      "hint": "Es una competencia clave de un equipo.",
+      "audio": "Un mensaje partido. Unid COLABORA y CIÓN."
+    },
+    {
+      "zone": "Rosaleda",
+      "title": "Pitch imposible",
+      "lat": 40.41072,
+      "lng": -3.68443,
+      "radius": 210,
+      "points": 260,
+      "icon": "💡",
+      "kind": "video",
+      "task": "Vídeo 10–25 s: vendéis una botella de agua como si fuera una innovación revolucionaria. Debe aparecer el producto y participar al menos 2 personas.",
+      "criteria": [
+        "a bottle or drinking water container visible",
+        "at least 2 people visible or clearly participating",
+        "presentation or sales-pitch behavior"
+      ],
+      "hint": "Problema, solución y beneficio; muy corto.",
+      "audio": "Pitch imposible. Vended una botella de agua como una innovación revolucionaria."
+    },
+    {
+      "zone": "Parterre",
+      "title": "Negociación relámpago",
+      "lat": 40.41536,
+      "lng": -3.687,
+      "radius": 220,
+      "points": 220,
+      "icon": "🤝",
+      "kind": "quiz",
+      "question": "Solo podéis elegir una: +100 seguros o 50% de +300 y 50% de 0. ¿Qué opción tiene mayor valor esperado?",
+      "options": [
+        "+100 seguros",
+        "Riesgo: 50% de +300",
+        "Son iguales"
+      ],
+      "answer": 1,
+      "hint": "Compara 100 con 0,5×300.",
+      "audio": "Negociación relámpago. Elegid entre cien puntos seguros o una apuesta de trescientos al cincuenta por ciento."
+    },
+    {
+      "zone": "Paseo de las Estatuas",
+      "title": "Foto liderazgo rotatorio",
+      "lat": 40.41602,
+      "lng": -3.68615,
+      "radius": 200,
+      "points": 230,
+      "icon": "🧭",
+      "kind": "image",
+      "task": "Foto con al menos 4 miembros: uno al frente señalando dirección, dos mirando hacia él/ella y otro mirando el mapa o móvil.",
+      "criteria": [
+        "at least 4 people visible",
+        "one person clearly leading or pointing a direction",
+        "at least two participants attending to the leader",
+        "one participant appears to inspect a phone or map"
+      ],
+      "hint": "Asignad roles antes de hacer la foto.",
+      "audio": "Representad liderazgo rotatorio: líder al frente, dos atentos y una persona revisando mapa o móvil."
+    },
+    {
+      "zone": "Cecilio Rodríguez",
+      "title": "Crisis controlada",
+      "lat": 40.41503,
+      "lng": -3.6786,
+      "radius": 220,
+      "points": 250,
+      "icon": "🚨",
+      "kind": "voice",
+      "question": "En una frase: el cliente cambia el plazo de 10 días a 3. ¿Qué hacéis primero?",
+      "containsAny": [
+        "prior",
+        "alcance",
+        "recursos",
+        "cliente",
+        "plan"
+      ],
+      "hint": "Buscamos una respuesta de priorización, recursos, alcance o alineación con cliente.",
+      "audio": "Crisis. El cliente reduce el plazo de diez días a tres. Responded en una frase qué haríais primero."
+    },
+    {
+      "zone": "Estanque ochavado",
+      "title": "Misión colectiva",
+      "lat": 40.41455,
+      "lng": -3.6853,
+      "radius": 200,
+      "points": 270,
+      "icon": "🧩",
+      "kind": "image",
+      "task": "Foto de equipo formando físicamente una figura reconocible: flecha, letra V o círculo. Deben participar al menos 4 personas.",
+      "criteria": [
+        "at least 4 people visible",
+        "participants collectively form a recognizable arrow, V shape, or circle-like formation"
+      ],
+      "hint": "La V suele ser la más fácil con 4–6 personas.",
+      "audio": "Misión colectiva. Formad entre todos una flecha, una V o un círculo y haced la foto."
+    },
+    {
+      "zone": "Meta Diverbikes",
+      "title": "Debrief final",
+      "lat": 40.41905,
+      "lng": -3.67815,
+      "radius": 250,
+      "points": 300,
+      "icon": "🏁",
+      "kind": "voice",
+      "question": "En máximo 12 palabras: ¿qué hizo funcionar mejor al equipo hoy?",
+      "minWords": 3,
+      "hint": "Comunicación, reparto de roles, confianza, escucha, estrategia…",
+      "audio": "Cierre. En no más de doce palabras, explicad qué hizo funcionar mejor a vuestro equipo."
+    }
+  ]
+}
