@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#EB6909">
+<title>Diverbikes · Retiro Challenge</title>
+<style>
+:root{
+ --orange:#EB6909; --orange2:#C95500; --ink:#3C3C3B; --muted:#77736F;
+ --paper:#F7F5F2; --white:#fff; --line:#E6E0D8; --green:#39785C; --gold:#D69A22;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#ece9e4;color:var(--ink);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{min-height:100vh}
+.shell{max-width:470px;min-height:100vh;margin:auto;background:var(--paper);position:relative;overflow:hidden;box-shadow:0 0 40px #0002}
+.header{background:#fff;padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:30}
+.header img{width:100px;height:52px;object-fit:cover;object-position:center;border-radius:7px}
+.header .hcopy{flex:1}.eyebrow{font-size:10px;font-weight:900;letter-spacing:1.2px;color:var(--orange)}
+.header b{font-size:16px}.header small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.screen{display:none;padding:16px 15px 104px;animation:in .22s ease}.screen.active{display:block}
+@keyframes in{from{opacity:.25;transform:translateY(6px)}to{opacity:1;transform:none}}
+.hero{background:linear-gradient(150deg,#4b4a47 0%,#2f2f2e 75%);color:white;border-radius:25px;padding:24px 20px 22px;position:relative;overflow:hidden;box-shadow:0 15px 30px #0002}
+.hero:after{content:"";position:absolute;width:180px;height:180px;border:34px solid var(--orange);border-radius:50%;right:-95px;top:-55px;opacity:.9}
+.hero h1{font-size:38px;line-height:.94;margin:8px 0 10px;max-width:310px;position:relative;z-index:1}
+.hero p{font-size:14px;line-height:1.5;color:#eee;max-width:310px;position:relative;z-index:1}
+.pill{display:inline-flex;padding:6px 9px;border-radius:99px;background:var(--orange);font-weight:900;font-size:10px;letter-spacing:.7px;position:relative;z-index:1}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;margin:12px 0;box-shadow:0 7px 20px #473e310d}
+.card h3{margin:0 0 6px}.muted{font-size:13px;color:var(--muted);line-height:1.45}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:14px 15px;margin-top:10px;background:var(--orange);color:white;font-weight:900;font-size:15px;text-align:center;text-decoration:none;cursor:pointer}
+.btn:active{transform:scale(.99)}.btn.secondary{background:#fff3ea;color:var(--orange);border:1px solid #fac8a4}
+.btn.dark{background:var(--ink)}.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.product{position:relative;overflow:hidden;cursor:pointer}.product .icon{font-size:30px}.product strong{display:block;font-size:17px;margin:6px 0 3px}
+.product.selected{border:2px solid var(--orange);background:#fff9f4}
+.product .tag{position:absolute;right:10px;top:10px;background:#fff3ea;color:var(--orange);font-size:10px;font-weight:900;padding:5px 7px;border-radius:99px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.metric{background:white;border:1px solid var(--line);border-radius:13px;padding:10px;text-align:center}
+.metric b{font-size:17px;color:var(--orange)}.metric span{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.field{width:100%;border:1px solid #d9d2c8;background:#fff;border-radius:13px;padding:13px;font-size:15px;margin-top:6px}
+label{display:block;font-size:12px;font-weight:800;margin:11px 0 0}
+.notice{background:#fff4e9;border:1px solid #f1cba9;padding:12px;border-radius:14px;font-size:12px;line-height:1.45}
+.ai{background:linear-gradient(145deg,#fff,#fff5ec);border-color:#f1c7a7}.aihead{display:flex;align-items:center;gap:8px;font-weight:900}.bot{width:29px;height:29px;background:var(--orange);color:white;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:11px}
+.progress{height:8px;background:#eadfd5;border-radius:99px;overflow:hidden}.bar{height:100%;width:0;background:var(--orange);transition:.3s}
+.map{height:270px;border-radius:19px;position:relative;overflow:hidden;background:
+radial-gradient(circle at 32% 24%,#88b7d3 0 12%,transparent 13%),
+linear-gradient(135deg,#aecb8a 0 25%,#d8e0aa 25% 43%,#a5c682 43% 64%,#d0d7a9 64%);border:1px solid #c8c2b9}
+.road{position:absolute;width:80%;height:62%;left:9%;top:19%;border:5px solid rgba(255,255,255,.82);border-radius:40% 31% 45% 22%;transform:rotate(-8deg)}
+.pin{position:absolute;width:35px;height:35px;border-radius:50%;background:var(--orange);border:3px solid white;color:white;display:flex;align-items:center;justify-content:center;font-weight:900;box-shadow:0 4px 12px #0003}
+.pin:nth-of-type(2){left:9%;top:68%}.pin:nth-of-type(3){left:28%;top:22%}.pin:nth-of-type(4){left:47%;top:49%}.pin:nth-of-type(5){left:66%;top:31%}.pin:nth-of-type(6){left:78%;top:58%}.pin:nth-of-type(7){left:53%;top:74%}
+.choice{padding:13px;border:1px solid var(--line);border-radius:13px;background:white;margin:9px 0;cursor:pointer}.choice.selected{border:2px solid var(--orange);background:#fff6ee}
+.upload{height:170px;border:2px dashed #d7c5b7;background:#fffcf9;border-radius:17px;display:flex;align-items:center;justify-content:center;flex-direction:column;color:var(--muted);cursor:pointer}
+.rank{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #eee7df;padding:11px 0}.rank:last-child{border:0}.rank b{color:var(--orange)}
+.code{display:flex;gap:8px;justify-content:center}.digit{width:52px;height:58px;background:#fff;border:2px solid #d9d0c6;border-radius:13px;display:flex;align-items:center;justify-content:center;font-weight:1000;font-size:27px}
+.trophy{text-align:center;font-size:70px}
+.tabs{display:flex;gap:6px;background:#eee8e1;border-radius:12px;padding:4px}.tab{flex:1;border:0;border-radius:9px;padding:9px 5px;font-size:11px;font-weight:800;background:transparent}.tab.on{background:white;color:var(--orange);box-shadow:0 2px 7px #0001}
+.bottom{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(470px,100%);display:grid;grid-template-columns:repeat(4,1fr);background:white;border-top:1px solid var(--line);padding:7px 5px calc(7px + env(safe-area-inset-bottom));z-index:40}
+.nav{border:0;background:none;color:#8a827a;padding:5px;font-size:10px;font-weight:700}.nav i{display:block;font-style:normal;font-size:20px;margin-bottom:2px}.nav.hot{color:var(--orange)}
+.toast{position:fixed;z-index:80;bottom:86px;left:50%;transform:translateX(-50%);max-width:360px;background:#333;color:white;padding:10px 13px;border-radius:11px;font-size:12px;opacity:0;pointer-events:none;transition:.2s}.toast.show{opacity:1}
+.hidden{display:none!important}.center{text-align:center}
+@media(min-width:700px){.shell{margin-top:18px;margin-bottom:18px;min-height:calc(100vh - 36px);border-radius:28px}.bottom{bottom:18px;border-radius:0 0 28px 28px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="header">
+<img src="data:image/png;base64,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" alt="Diverbikes">
+<div class="hcopy"><div class="eyebrow">DIVERBIKES EXPERIENCES</div><b>Retiro Challenge</b><small>Demo · IA + juego + movilidad</small></div>
+</header>
+
+<section class="screen active" id="home">
+ <div class="hero">
+  <span class="pill">NUEVA EXPERIENCIA</span>
+  <h1>El Retiro se convierte en tu juego.</h1>
+  <p>Elige experiencia, forma equipo, recorre el parque y supera misiones con pistas y validación asistidas por IA.</p>
+  <button class="btn" onclick="go('products')">Empezar demo</button>
+ </div>
+ <div class="card">
+  <h3>Una capa premium sobre la flota Diverbikes</h3>
+  <div class="muted">La demo está pensada para mostrar cómo cumpleaños, familias y empresas pueden funcionar con el mismo motor digital.</div>
+ </div>
+ <div class="notice"><b>Identidad visual:</b> usa el naranja y el logo presentes en material público de Diverbikes. Antes de producción conviene contrastar el manual de marca original si existe.</div>
+</section>
+
+<section class="screen" id="products">
+ <h2>¿Qué aventura quieres vivir?</h2>
+ <div class="product card selected" onclick="selectProduct(this,'birthday')"><span class="tag">DEMO COMPLETA</span><div class="icon">🎂</div><strong>Cumpleaños</strong><div class="muted">El Tesoro Secreto del Retiro · 8–14 años · 90 min</div></div>
+ <div class="product card" onclick="selectProduct(this,'family')"><div class="icon">👨‍👩‍👧‍👦</div><strong>Familias</strong><div class="muted">El Gran Reto del Retiro · padres vs hijos + cooperación</div></div>
+ <div class="product card" onclick="selectProduct(this,'corporate')"><div class="icon">🏢</div><strong>Empresas</strong><div class="muted">Corporate Bike Challenge · estrategia + comunicación</div></div>
+ <button class="btn" onclick="go('setup')">Continuar</button>
+</section>
+
+<section class="screen" id="setup">
+ <h2>Crea tu equipo</h2>
+ <div class="card">
+  <label>Nombre del equipo</label><input class="field" id="team" value="Los Exploradores">
+  <label>Protagonista / cumpleañero</label><input class="field" id="hero" value="Alex">
+  <label>Nivel</label><select class="field" id="level"><option>Fácil</option><option selected>Estándar</option><option>Experto</option></select>
+  <button class="btn" onclick="makeTeam()">Crear equipo</button>
+ </div>
+ <div class="card ai"><div class="aihead"><div class="bot">IA</div>Narrador Diverbikes</div><p class="muted">La versión real adapta tono, historia, dificultad y pistas al tipo de grupo.</p></div>
+</section>
+
+<section class="screen" id="briefing">
+ <h2>Tu misión</h2>
+ <div class="card">
+  <div class="eyebrow">EL TESORO SECRETO DEL RETIRO</div>
+  <h3 id="storyTitle">Alex, el Guardián te necesita.</h3>
+  <p id="story">Se han dispersado seis fragmentos del código que abre el cofre. Solo un equipo capaz de observar, colaborar y pensar podrá recuperarlos.</p>
+ </div>
+ <div class="notice"><b>Regla de oro:</b> la velocidad no da puntos. Las pruebas se consultan y responden con el vehículo detenido.</div>
+ <button class="btn dark" onclick="begin()">Aceptar misión</button>
+</section>
+
+<section class="screen" id="mission">
+ <div class="grid3">
+  <div class="metric"><b id="score">0</b><span>PUNTOS</span></div>
+  <div class="metric"><b id="mnum">1/6</b><span>MISIÓN</span></div>
+  <div class="metric"><b id="hints">3</b><span>PISTAS</span></div>
+ </div>
+ <div class="progress" style="margin:12px 0 15px"><div class="bar" id="pbar"></div></div>
+ <div class="card">
+  <div class="eyebrow" id="zone">ESTANQUE</div><h2 id="mtitle">Ojos de detective</h2><p id="mcopy">Localiza el detalle indicado.</p>
+  <div class="map"><div class="road"></div><div class="pin">1</div><div class="pin">2</div><div class="pin">3</div><div class="pin">4</div><div class="pin">5</div><div class="pin">6</div></div>
+  <button class="btn" onclick="arrive()">Ya estamos en la zona</button>
+  <button class="btn secondary" onclick="hint()">💡 Pedir pista IA (-20)</button>
+ </div>
+</section>
+
+<section class="screen" id="challenge">
+ <h2 id="ctitle">Prueba</h2>
+ <div class="card" id="challengeBody"></div>
+</section>
+
+<section class="screen" id="aicheck">
+ <h2>Validación IA</h2>
+ <div class="card ai"><div class="aihead"><div class="bot">IA</div>Analizando entrega</div><p class="muted" id="aimsg">Buscando requisitos de la misión…</p><div class="progress"><div class="bar" id="aibar"></div></div></div>
+</section>
+
+<section class="screen" id="result">
+ <div class="center"><div style="font-size:62px">✅</div><h2>¡Misión superada!</h2><div class="muted" id="resultcopy">Puntos añadidos.</div></div>
+ <div class="card"><div class="rank"><span>Base</span><b id="base">0</b></div><div class="rank"><span>Bonus</span><b id="bonus">0</b></div><div class="rank"><span>Pista</span><b id="penalty">0</b></div><div class="rank"><span>Total equipo</span><b id="total">0</b></div></div>
+ <button class="btn" onclick="next()">Siguiente</button>
+</section>
+
+<section class="screen" id="ranking">
+ <h2>Clasificación en directo</h2><div class="card" id="ranklist"></div><button class="btn ghost" onclick="go('mission')">Volver</button>
+</section>
+
+<section class="screen" id="final">
+ <div class="trophy">🧰</div><h2 class="center">Cofre final</h2><p class="muted center">Las pruebas han revelado la combinación.</p>
+ <div class="code"><div class="digit">7</div><div class="digit">3</div><div class="digit">9</div><div class="digit">2</div></div>
+ <button class="btn dark" onclick="openChest()">Abrir cofre</button>
+ <div id="win" class="card hidden center"><div class="trophy">🏆</div><h2>¡Reto completado!</h2><p id="wintext"></p><button class="btn" onclick="go('master')">Ver Game Master</button></div>
+</section>
+
+<section class="screen" id="master">
+ <h2>Game Master</h2>
+ <div class="tabs"><button class="tab on">En vivo</button><button class="tab">Entregas</button><button class="tab">Incidencias</button></div>
+ <div class="grid3" style="margin-top:12px"><div class="metric"><b>4</b><span>EQUIPOS</span></div><div class="metric"><b>18</b><span>PRUEBAS</span></div><div class="metric"><b>0</b><span>ALERTAS</span></div></div>
+ <div class="card"><h3>Equipos</h3><div class="rank"><span>🟢 <span id="masterteam">Exploradores</span> · M6</span><b id="masterscore">0</b></div><div class="rank"><span>🟡 Las Leyendas · M5</span><b>1.180</b></div><div class="rank"><span>🟢 Family Power · M5</span><b>1.040</b></div><div class="rank"><span>🟠 Retiro Team · M4</span><b>930</b></div></div>
+ <div class="card ai"><div class="aihead"><div class="bot">IA</div>Copiloto Game Master</div><p class="muted">“Las Leyendas llevan 7 min en la misma estación. Sugiero una pista nivel 1. Retiro Team va retrasado: puedo asignar una variante abreviada.”</p></div>
+ <div class="card"><h3>Acciones</h3><button class="btn ghost" onclick="toast('Pausa global simulada')">Pausar partida</button><button class="btn secondary" onclick="toast('Ruta alternativa asignada')">Reasignar estación</button></div>
+ <button class="btn dark" onclick="reset()">Reiniciar demo</button>
+</section>
+
+<nav class="bottom">
+ <button class="nav hot" onclick="go('home')"><i>🏠</i>Inicio</button>
+ <button class="nav" onclick="go('mission')"><i>🗺️</i>Misión</button>
+ <button class="nav" onclick="showRank()"><i>🏆</i>Ranking</button>
+ <button class="nav" onclick="go('master')"><i>🎛️</i>Master</button>
+</nav>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const missions=[
+ {z:"ESTANQUE",t:"Ojos de detective",c:"Observa el entorno y responde la pregunta.",type:"quiz",pts:150},
+ {z:"ALFONSO XII",t:"Pose Diverbikes",c:"Recrea una pose de equipo con el monumento al fondo.",type:"photo",pts:120},
+ {z:"PALACIO DE CRISTAL",t:"15 segundos",c:"Pon a prueba la memoria del equipo.",type:"memory",pts:150},
+ {z:"ÁNGEL CAÍDO",t:"Código del Ángel",c:"Resuelve el acertijo que guarda la tercera cifra.",type:"code",pts:160},
+ {z:"ROS ALEDA",t:"Mensaje roto",c:"Cada miembro posee una parte de la solución.",type:"team",pts:180},
+ {z:"REGRESO",t:"La última pieza",c:"Combina lo aprendido para recuperar el código final.",type:"meta",pts:250}
+];
+let st={product:"birthday",idx:0,score:0,hints:3,used:false,team:"Los Exploradores",hero:"Alex"};
+function go(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");scrollTo(0,0)}
+function selectProduct(el,p){document.querySelectorAll(".product").forEach(x=>x.classList.remove("selected"));el.classList.add("selected");st.product=p}
+function makeTeam(){st.team=document.getElementById("team").value||"Los Exploradores";st.hero=document.getElementById("hero").value||"Alex";document.getElementById("storyTitle").textContent=st.hero+", el Guardián te necesita.";go("briefing")}
+function begin(){update();go("mission")}
+function update(){let m=missions[st.idx];score.textContent=st.score;mnum.textContent=(st.idx+1)+"/6";hints.textContent=st.hints;pbar.style.width=(st.idx/6*100)+"%";zone.textContent=m.z;mtitle.textContent=m.t;mcopy.textContent=m.c}
+function hint(){if(st.hints<1)return toast("No quedan pistas");st.hints--;st.used=true;update();toast("IA: observa primero las formas grandes; no necesitas tocar nada.")}
+function arrive(){let m=missions[st.idx],h="";
+ if(m.type==="quiz") h=`<p><b>¿Qué elemento se repite visualmente en el conjunto?</b></p><div class="choice" onclick="pick(this)">A · Columnas</div><div class="choice" onclick="pick(this)">B · Barcos</div><div class="choice" onclick="pick(this)">C · Semáforos</div><button class="btn" onclick="complete(false)">Enviar</button>`;
+ if(m.type==="photo") h=`<p><b>Incluid a todo el equipo y el punto indicado al fondo.</b></p><div class="upload" onclick="complete(true)">📷<br><b>Subir foto simulada</b><span class="muted">En producción abrirá cámara/galería</span></div>`;
+ if(m.type==="memory") h=`<div class="notice">Memoriza: 🟠 🚲 🌳 ⭐ 🟢</div><p><b>¿Qué símbolo estaba en cuarta posición?</b></p><div class="choice" onclick="pick(this)">⭐ Estrella</div><div class="choice" onclick="pick(this)">🌳 Árbol</div><button class="btn" onclick="complete(false)">Responder</button>`;
+ if(m.type==="code") h=`<p><b>Soy impar, mayor que 7 y menor que 11. ¿Qué número soy?</b></p><input class="field" value="9"><button class="btn" onclick="complete(false)">Validar</button>`;
+ if(m.type==="team") h=`<p><b>Ordena estas piezas: RE · TI · RO · 7</b></p><input class="field" value="RETIRO7"><button class="btn" onclick="complete(false)">Enviar clave</button>`;
+ if(m.type==="meta") h=`<p><b>Última pieza recuperada.</b></p><div class="code"><div class="digit">7</div><div class="digit">3</div><div class="digit">9</div><div class="digit">2</div></div><button class="btn" onclick="complete(false)">Confirmar</button>`;
+ document.getElementById("ctitle").textContent=m.t;document.getElementById("challengeBody").innerHTML=h;go("challenge")
+}
+function pick(el){document.querySelectorAll(".choice").forEach(x=>x.classList.remove("selected"));el.classList.add("selected")}
+function complete(ai){if(!ai)return finish();go("aicheck");aibar.style.width="0%";aimsg.textContent="Buscando requisitos de la misión…";setTimeout(()=>aibar.style.width="45%",250);setTimeout(()=>aibar.style.width="82%",650);setTimeout(()=>{aibar.style.width="100%";aimsg.textContent="Equipo completo ✓ · pose válida ✓ · contexto correcto ✓";setTimeout(finish,500)},1050)}
+function finish(){let m=missions[st.idx],bonus=m.type==="photo"?25:0,pen=st.used?20:0,gain=m.pts+bonus-pen;st.score+=gain;base.textContent=m.pts;document.getElementById("bonus").textContent=bonus?("+"+bonus):"0";penalty.textContent=pen?("-"+pen):"0";total.textContent=st.score;resultcopy.textContent="Has sumado "+gain+" puntos.";st.used=false;go("result")}
+function next(){if(st.idx===5){wintext.textContent=st.team+" ha completado Retiro Challenge con "+st.score+" puntos.";go("final")}else{st.idx++;update();go("mission")}}
+function showRank(){let a=[[st.team,st.score],["Las Leyendas",1180],["Family Power",1040],["Retiro Team",930]].sort((a,b)=>b[1]-a[1]);ranklist.innerHTML=a.map((x,i)=>`<div class="rank"><span>${i+1}. ${x[0]}</span><b>${x[1]} pts</b></div>`).join("");go("ranking")}
+function openChest(){document.getElementById("win").classList.remove("hidden");masterscore.textContent=st.score;masterteam.textContent=st.team}
+function toast(x){let t=document.getElementById("toast");t.textContent=x;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1600)}
+function reset(){st={product:"birthday",idx:0,score:0,hints:3,used:false,team:"Los Exploradores",hero:"Alex"};document.getElementById("win").classList.add("hidden");update();go("home")}
+update();
+</script>
+</body>
+</html>
