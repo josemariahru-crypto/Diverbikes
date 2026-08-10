@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#EB6909">
+<title>Diverbikes · Retiro Challenge V3</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<style>
+:root{--orange:#EB6909;--orange2:#C95500;--ink:#353534;--muted:#746f69;--paper:#F7F4EF;--white:#fff;--line:#E4DDD4;--green:#2E7D5A;--red:#B74343;--blue:#2676B8;--gold:#D99B2B}
+*{box-sizing:border-box}html,body{margin:0;background:#ebe7e1;color:var(--ink);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.shell{max-width:500px;min-height:100vh;margin:auto;background:var(--paper);position:relative;overflow:hidden;box-shadow:0 0 40px #0002}
+.header{background:#fff;padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:900}
+.logoText{width:106px;height:52px;border-radius:8px;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:1000;letter-spacing:-1px;font-size:16px;transform:skew(-6deg)}
+.header .copy{flex:1}.eyebrow{font-size:10px;font-weight:950;letter-spacing:1.15px;color:var(--orange)}.header b{font-size:16px}.header small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.screen{display:none;padding:16px 15px 105px}.screen.active{display:block}
+.hero{background:linear-gradient(145deg,#4a4946,#292928);color:#fff;border-radius:25px;padding:26px 20px;position:relative;overflow:hidden;box-shadow:0 14px 30px #0002}.hero:after{content:"";position:absolute;width:190px;height:190px;border:34px solid var(--orange);border-radius:50%;right:-105px;top:-68px}.hero h1{font-size:39px;line-height:.94;margin:10px 0;position:relative;z-index:2;max-width:330px}.hero p{font-size:14px;line-height:1.48;color:#eee;position:relative;z-index:2;max-width:330px}
+.pill{display:inline-flex;padding:6px 9px;border-radius:99px;background:var(--orange);font-weight:900;font-size:10px;letter-spacing:.6px;position:relative;z-index:2}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;margin:12px 0;box-shadow:0 7px 20px #473e310d}.card h3{margin:0 0 7px}.muted{font-size:13px;color:var(--muted);line-height:1.45}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:14px 15px;margin-top:10px;background:var(--orange);color:#fff;font-weight:900;font-size:15px;text-align:center;text-decoration:none;cursor:pointer}.btn.dark{background:var(--ink)}.btn.secondary{background:#fff2e8;color:var(--orange);border:1px solid #f3c49f}.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}.btn.green{background:var(--green)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.metric{background:#fff;border:1px solid var(--line);border-radius:13px;padding:10px;text-align:center}.metric b{display:block;font-size:17px;color:var(--orange)}.metric span{font-size:10px;color:var(--muted)}
+.notice{background:#fff4e8;border:1px solid #f0cda9;border-radius:14px;padding:12px;font-size:12px;line-height:1.45}.okbox{background:#eef8f2;border:1px solid #b7dbc6}.badbox{background:#fff0f0;border:1px solid #e6bbbb}.info{background:#edf6ff;border:1px solid #b9d6ee}
+.field{width:100%;border:1px solid #d8d1c9;background:#fff;border-radius:13px;padding:13px;font-size:15px;margin:6px 0 9px}
+.product{cursor:pointer;position:relative}.product.selected{border:2px solid var(--orange);background:#fff8f2}.product .tag{position:absolute;right:10px;top:10px;background:#fff1e5;color:var(--orange);font-size:10px;font-weight:900;padding:5px 7px;border-radius:99px}
+.progress{height:8px;background:#eadfd5;border-radius:99px;overflow:hidden;margin:12px 0}.bar{height:100%;width:0;background:var(--orange);transition:.3s}
+#map{height:305px;border-radius:18px;overflow:hidden;border:1px solid #cbc3b8;z-index:1}.mapline{display:flex;justify-content:space-between;gap:10px;font-size:12px;margin-top:8px}.distance{font-weight:900;color:var(--orange)}
+.steps{counter-reset:s}.step{display:flex;gap:10px;margin:9px 0;align-items:flex-start}.step:before{counter-increment:s;content:counter(s);min-width:26px;height:26px;border-radius:50%;background:var(--orange);color:white;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px}.step b{display:block;font-size:13px}.step span{font-size:12px;color:var(--muted);line-height:1.35}
+.choice{padding:13px;border:1px solid var(--line);border-radius:13px;background:#fff;margin:9px 0;cursor:pointer}.choice.selected{border:2px solid var(--orange);background:#fff5ec}.choice.wrong{border-color:var(--red);background:#fff0f0}.choice.correct{border-color:var(--green);background:#eef8f2}
+.ai{background:linear-gradient(145deg,#fff,#fff4e9);border-color:#efc49f}.aihead{display:flex;align-items:center;gap:8px;font-weight:900}.bot{width:30px;height:30px;border-radius:9px;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:950}
+.chat{height:260px;overflow:auto;background:#faf8f5;border:1px solid var(--line);border-radius:14px;padding:10px}.msg{max-width:88%;padding:9px 11px;border-radius:13px;margin:7px 0;font-size:12.5px;line-height:1.4}.msg.aiM{background:#fff0e5;border:1px solid #f3c39d}.msg.userM{background:#eaf3fb;border:1px solid #bfd5e7;margin-left:auto}.chatrow{display:flex;gap:8px;margin-top:8px}.chatrow input{flex:1;margin:0}.chatrow button{width:auto;margin:0;padding:11px 13px}
+.upload{border:2px dashed #d8c6b6;border-radius:16px;padding:18px;text-align:center;background:#fffcf9}.upload input{width:100%;margin-top:10px}
+.rank{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #eee7df;padding:11px 0}.rank:last-child{border:0}.rank b{color:var(--orange)}
+.code{display:flex;gap:8px;justify-content:center}.digit{width:52px;height:58px;background:#fff;border:2px solid #d9d0c6;border-radius:13px;display:flex;align-items:center;justify-content:center;font-weight:1000;font-size:27px}.center{text-align:center}.hidden{display:none!important}
+.toggleline{display:flex;justify-content:space-between;align-items:center;gap:12px}.switch{position:relative;width:50px;height:28px;background:#ccc;border-radius:99px;cursor:pointer}.switch.on{background:var(--orange)}.switch:after{content:"";position:absolute;width:22px;height:22px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s;box-shadow:0 1px 4px #0003}.switch.on:after{left:25px}
+.bottom{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(500px,100%);display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-top:1px solid var(--line);padding:7px 5px calc(7px + env(safe-area-inset-bottom));z-index:950}.nav{border:0;background:none;color:#887f76;padding:5px;font-size:10px;font-weight:800}.nav i{display:block;font-style:normal;font-size:20px}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#333;color:#fff;padding:10px 13px;border-radius:10px;font-size:12px;opacity:0;transition:.2s;z-index:1000;max-width:380px}.toast.show{opacity:1}
+@media(min-width:720px){.shell{margin-top:18px;margin-bottom:18px;border-radius:28px;min-height:calc(100vh - 36px)}.bottom{bottom:18px;border-radius:0 0 28px 28px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="header">
+  <div class="logoText">DIVERBIKES</div>
+  <div class="copy"><div class="eyebrow">RETIRO CHALLENGE · V3</div><b>Game Master inteligente</b><small>GPS · geovallas · pruebas reales</small></div>
+</header>
+
+<section id="home" class="screen active">
+  <div class="hero">
+    <span class="pill">DEMO FUNCIONAL V3</span>
+    <h1>Muévete. Observa. Piensa. Gana.</h1>
+    <p>Ahora las respuestas pueden ser incorrectas, el GPS importa y el Game Master te ayuda según la misión.</p>
+    <button class="btn" onclick="go('products')">Empezar</button>
+  </div>
+  <div class="card"><h3>Qué cambia en V3</h3><div class="muted">✓ GPS real y distancia · ✓ desbloqueo por proximidad · ✓ modo demo desde casa · ✓ respuestas correctas/incorrectas · ✓ penalizaciones · ✓ chat contextual · ✓ pruebas encadenadas.</div></div>
+</section>
+
+<section id="products" class="screen">
+  <h2>Elige experiencia</h2>
+  <div class="card product selected" onclick="selectProduct(this,'birthday')"><span class="tag">COMPLETA</span>🎂 <h3>Cumpleaños</h3><div class="muted">El Tesoro Secreto del Retiro · 6 misiones encadenadas.</div></div>
+  <div class="card product" onclick="selectProduct(this,'family')">👨‍👩‍👧‍👦 <h3>Familias</h3><div class="muted">Motor preparado; contenido completo en siguiente iteración.</div></div>
+  <div class="card product" onclick="selectProduct(this,'corporate')">🏢 <h3>Empresas</h3><div class="muted">Motor preparado; Team Building con estrategia y debrief.</div></div>
+  <button class="btn" onclick="go('setup')">Continuar</button>
+</section>
+
+<section id="setup" class="screen">
+  <h2>Prepara el equipo</h2>
+  <div class="card">
+    <label>Nombre del equipo</label><input id="teamInput" class="field" value="Los Exploradores">
+    <label>Protagonista</label><input id="heroInput" class="field" value="Alex">
+    <label>Edad aproximada</label><select id="ageInput" class="field"><option>8–10</option><option selected>11–13</option><option>14–16</option></select>
+  </div>
+  <div class="card">
+    <div class="toggleline"><div><b>Modo demo</b><div class="muted">Simula llegar a los puntos si no estás en El Retiro.</div></div><div id="demoSwitch" class="switch on" onclick="toggleDemo()"></div></div>
+  </div>
+  <button class="btn" onclick="createTeam()">Crear equipo</button>
+</section>
+
+<section id="brief" class="screen">
+  <h2>Tu misión</h2>
+  <div class="card"><div class="eyebrow">EL TESORO SECRETO DEL RETIRO</div><h3 id="briefTitle">Alex, necesitamos tu equipo.</h3><p>Seis fragmentos forman el código del cofre. Cada misión bien resuelta revela una pista. Las respuestas incorrectas no dan puntos.</p></div>
+  <div class="notice"><b>Seguridad:</b> el móvil se usa con la bicicleta detenida. El juego nunca premia velocidad.</div>
+  <button class="btn dark" onclick="startGame()">Comenzar misión 1</button>
+</section>
+
+<section id="mission" class="screen">
+  <div class="grid3">
+    <div class="metric"><b id="score">0</b><span>PUNTOS</span></div>
+    <div class="metric"><b id="missionNum">1/6</b><span>MISIÓN</span></div>
+    <div class="metric"><b id="hintNum">3</b><span>PISTAS</span></div>
+  </div>
+  <div class="progress"><div id="progressBar" class="bar"></div></div>
+  <div class="card">
+    <div class="eyebrow" id="zone">ESTANQUE GRANDE</div>
+    <h2 id="missionTitle">El guardián del agua</h2>
+    <p id="missionIntro"></p>
+    <div class="steps" id="steps"></div>
+  </div>
+  <div class="card">
+    <h3>📍 Tu posición y destino</h3>
+    <div id="map"></div>
+    <div class="mapline"><span id="gpsStatus">GPS aún no solicitado</span><span id="distanceText" class="distance">—</span></div>
+    <button class="btn secondary" onclick="locateMe()">Usar mi GPS</button>
+    <button id="arriveBtn" class="btn" onclick="tryUnlock()">Comprobar llegada</button>
+  </div>
+  <div class="card ai">
+    <div class="aihead"><div class="bot">IA</div>Game Master</div>
+    <p class="muted">Puedes preguntarme qué hacer, pedir una pista o consultar tus puntos.</p>
+    <button class="btn ghost" onclick="openAI()">Hablar con Game Master</button>
+  </div>
+</section>
+
+<section id="challenge" class="screen">
+  <div class="eyebrow" id="challengeZone"></div><h2 id="challengeTitle"></h2>
+  <div class="card" id="challengeInstructions"></div>
+  <div class="card" id="challengeBody"></div>
+  <div id="feedback"></div>
+  <button class="btn ghost" onclick="openAI()">💬 Preguntar al Game Master</button>
+</section>
+
+<section id="aiScreen" class="screen">
+  <h2>Game Master IA</h2>
+  <div class="card ai">
+    <div class="aihead"><div class="bot">IA</div><span id="aiMissionLabel">Misión actual</span></div>
+    <div class="chat" id="chat"></div>
+    <div class="chatrow"><input id="chatInput" class="field" placeholder="Ej.: No entiendo la prueba"><button class="btn" onclick="sendChat()">Enviar</button></div>
+  </div>
+  <div class="card"><b>Preguntas rápidas</b>
+    <button class="btn secondary" onclick="quickAsk('No entiendo la prueba')">No entiendo la prueba</button>
+    <button class="btn secondary" onclick="quickAsk('Dame una pista')">Dame una pista</button>
+    <button class="btn secondary" onclick="quickAsk('Cuántos puntos tengo')">¿Cuántos puntos tengo?</button>
+    <button class="btn ghost" onclick="go(state.inChallenge?'challenge':'mission')">Volver</button>
+  </div>
+  <div class="notice info"><b>Demo IA:</b> este Game Master ya responde al contexto y al historial de la partida, pero funciona con lógica local. Para conversación libre con un modelo multimodal real hace falta un backend seguro.</div>
+</section>
+
+<section id="result" class="screen">
+  <div class="center" style="font-size:64px">✅</div><h2 class="center">Misión superada</h2>
+  <div class="card"><div class="rank"><span>Puntos base</span><b id="resultBase">0</b></div><div class="rank"><span>Penalizaciones</span><b id="resultPenalty">0</b></div><div class="rank"><span>Total equipo</span><b id="resultTotal">0</b></div><div class="rank"><span>Fragmento recuperado</span><b id="fragment">—</b></div></div>
+  <button class="btn" onclick="nextMission()">Siguiente destino</button>
+</section>
+
+<section id="ranking" class="screen">
+  <h2>Clasificación</h2><div class="card" id="rankingList"></div><button class="btn ghost" onclick="go('mission')">Volver a la misión</button>
+</section>
+
+<section id="final" class="screen">
+  <div class="center" style="font-size:70px">🧰</div><h2 class="center">El cofre final</h2>
+  <p class="muted center">Introduce los cuatro fragmentos principales recuperados durante el recorrido.</p>
+  <input id="finalCode" class="field center" inputmode="numeric" maxlength="4" placeholder="_ _ _ _" style="font-size:28px;letter-spacing:8px;font-weight:900">
+  <button class="btn dark" onclick="checkFinalCode()">Abrir cofre</button>
+  <div id="finalFeedback"></div>
+  <div id="victory" class="card hidden center"><div style="font-size:60px">🏆</div><h2>¡Tesoro encontrado!</h2><p id="victoryText"></p><button class="btn" onclick="go('master')">Ver Game Master</button></div>
+</section>
+
+<section id="master" class="screen">
+  <h2>Panel Game Master</h2>
+  <div class="grid3"><div class="metric"><b id="gmTeams">4</b><span>EQUIPOS</span></div><div class="metric"><b id="gmScore">0</b><span>TU EQUIPO</span></div><div class="metric"><b id="gmErrors">0</b><span>ERRORES</span></div></div>
+  <div class="card"><h3>Seguimiento</h3><div class="rank"><span id="gmTeamName">🟢 Los Exploradores</span><b id="gmMission">M1</b></div><div class="rank"><span>Pistas usadas</span><b id="gmHints">0</b></div><div class="rank"><span>Modo</span><b id="gmMode">DEMO</b></div></div>
+  <div class="card ai"><div class="aihead"><div class="bot">IA</div>Copiloto</div><p id="copilotText" class="muted"></p></div>
+  <button class="btn dark" onclick="resetAll()">Reiniciar demo</button>
+</section>
+
+<nav class="bottom">
+  <button class="nav" onclick="go('home')"><i>🏠</i>Inicio</button>
+  <button class="nav" onclick="go('mission')"><i>🗺️</i>Misión</button>
+  <button class="nav" onclick="showRanking()"><i>🏆</i>Ranking</button>
+  <button class="nav" onclick="go('master');updateMaster()"><i>🎛️</i>Master</button>
+</nav>
+</div>
+<div id="toast" class="toast"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+const missions=[
+ {zone:"ESTANQUE GRANDE",title:"El guardián del agua",lat:40.41735,lng:-3.68290,radius:180,base:150,fragment:"7",
+ intro:"Encuentra el Estanque Grande. Al llegar, observa el conjunto monumental del lado este.",
+ steps:[["Llega al Estanque","El GPS desbloquea la prueba al acercarte."],["Observa el monumento","No necesitas tocar nada ni salir de la zona segura."],["Responde","Elige qué personaje histórico preside el monumento principal."]],
+ type:"mcq",question:"¿A qué monarca está dedicado el gran monumento que preside el Estanque?",options:["Carlos III","Alfonso XII","Felipe IV"],correct:1,
+ hint:"Fíjate en el nombre del gran monumento frente al estanque. Empieza por «Alfonso…»."},
+ {zone:"MONUMENTO A ALFONSO XII",title:"La pose imposible",lat:40.41720,lng:-3.68235,radius:170,base:140,fragment:"3",
+ intro:"Ahora necesitamos una prueba visual del equipo completo.",
+ steps:[["Busca un punto seguro","Detén y estaciona el vehículo donde proceda."],["Haz una foto","Debe aparecer al menos una persona y el monumento al fondo."],["Sube la imagen","Sin archivo no se puede validar la misión."]],
+ type:"photo",hint:"No hace falta una foto perfecta: basta con que se entienda la escena y hayas seleccionado un archivo."},
+ {zone:"PALACIO DE CRISTAL",title:"Memoria de cristal",lat:40.41362,lng:-3.68134,radius:180,base:160,fragment:"9",
+ intro:"Una prueba de memoria: observa la secuencia y no hagas captura.",
+ steps:[["Memoriza","Tendrás una secuencia breve."],["Ocúltala","Pulsa «Ya la he memorizado»."],["Responde","Solo una opción es correcta."]],
+ type:"memory",sequence:"🟠  🚲  🌳  ⭐  🔵",question:"¿Qué símbolo estaba en la cuarta posición?",options:["🌳 Árbol","⭐ Estrella","🔵 Círculo azul"],correct:1,
+ hint:"La cuarta figura brilla en el cielo por la noche."},
+ {zone:"FUENTE DEL ÁNGEL CAÍDO",title:"El código del ángel",lat:40.41120,lng:-3.68228,radius:180,base:170,fragment:"2",
+ intro:"El siguiente fragmento está protegido por un acertijo lógico.",
+ steps:[["Llega a la zona","El GPS o el modo demo confirma la llegada."],["Lee el acertijo","No requiere conocimientos históricos."],["Introduce el número","Tienes hasta tres intentos antes de perder puntos."]],
+ type:"code",question:"Soy un número par, mayor que 0 y menor que 4. ¿Qué número soy?",correctText:"2",
+ hint:"Solo hay un número par entre 0 y 4 que no sea 0 ni 4."},
+ {zone:"ROSALEDA / ENTORNO",title:"Mensaje roto",lat:40.41072,lng:-3.68443,radius:210,base:180,fragment:"R",
+ intro:"Esta vez gana el equipo que mejor se coordine.",
+ steps:[["Reparte las piezas","RE · TI · RO · 7"],["Ordénalas","Forma una única clave sin espacios."],["Escríbela","Mayúsculas o minúsculas dan igual."]],
+ type:"text",question:"¿Cuál es la clave?",correctText:"RETIRO7",
+ hint:"Las tres primeras piezas forman el nombre del parque. Después añade el número."},
+ {zone:"REGRESO A META",title:"La última pieza",lat:40.41905,lng:-3.67815,radius:250,base:220,fragment:"✓",
+ intro:"Antes del cofre debes demostrar que recuerdas los cuatro fragmentos principales.",
+ steps:[["Revisa tus pistas","Las primeras cuatro misiones dieron cifras."],["Ordénalas","En el mismo orden de las misiones."],["Escribe el código","Si es correcto pasarás al cofre final."]],
+ type:"text",question:"Introduce los cuatro dígitos en orden:",correctText:"7392",
+ hint:"Empieza por el fragmento del Estanque y termina por el del Ángel Caído."}
+];
+
+let state={idx:0,score:0,hintsLeft:3,hintsUsed:0,errors:0,team:"Los Exploradores",hero:"Alex",demo:true,product:"birthday",userPos:null,unlocked:false,inChallenge:false,selectedAnswer:null,attempts:0,fragments:[],mapReady:false,map:null,userMarker:null,targetMarker:null,targetCircle:null};
+
+function go(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");window.scrollTo(0,0);if(id==="mission")setTimeout(renderMap,180)}
+function toastMsg(t){let x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1900)}
+function selectProduct(el,p){document.querySelectorAll(".product").forEach(x=>x.classList.remove("selected"));el.classList.add("selected");state.product=p;if(p!=="birthday")toastMsg("En V3 completa está activo Cumpleaños; el motor es reutilizable.")}
+function toggleDemo(){state.demo=!state.demo;document.getElementById("demoSwitch").classList.toggle("on",state.demo);toastMsg(state.demo?"Modo demo activado":"Modo GPS real activado")}
+function createTeam(){state.team=document.getElementById("teamInput").value||"Los Exploradores";state.hero=document.getElementById("heroInput").value||"Alex";document.getElementById("briefTitle").textContent=state.hero+", necesitamos a "+state.team+".";go("brief")}
+function startGame(){state.idx=0;state.score=0;state.errors=0;state.fragments=[];renderMission();go("mission")}
+function renderMission(){let m=missions[state.idx];state.unlocked=false;state.inChallenge=false;state.selectedAnswer=null;state.attempts=0;
+ document.getElementById("score").textContent=state.score;document.getElementById("missionNum").textContent=(state.idx+1)+"/"+missions.length;document.getElementById("hintNum").textContent=state.hintsLeft;document.getElementById("progressBar").style.width=(state.idx/missions.length*100)+"%";
+ document.getElementById("zone").textContent=m.zone;document.getElementById("missionTitle").textContent=m.title;document.getElementById("missionIntro").textContent=m.intro;
+ document.getElementById("steps").innerHTML=m.steps.map(s=>`<div class="step"><div><b>${s[0]}</b><span>${s[1]}</span></div></div>`).join("");
+ document.getElementById("gpsStatus").textContent=state.demo?"Modo demo: puedes simular llegada":"GPS real: pulsa «Usar mi GPS»";document.getElementById("distanceText").textContent="—";
+ setTimeout(renderMap,100);
+}
+function renderMap(){if(!document.getElementById("map")||!document.getElementById("mission").classList.contains("active"))return;let m=missions[state.idx];
+ if(!state.map){state.map=L.map("map",{zoomControl:true}).setView([m.lat,m.lng],16);L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(state.map)}
+ state.map.setView([m.lat,m.lng],16);
+ if(state.targetMarker)state.map.removeLayer(state.targetMarker);if(state.targetCircle)state.map.removeLayer(state.targetCircle);
+ state.targetMarker=L.marker([m.lat,m.lng]).addTo(state.map).bindPopup("Destino: "+m.zone);
+ state.targetCircle=L.circle([m.lat,m.lng],{radius:m.radius,color:"#EB6909",fillOpacity:.08}).addTo(state.map);
+ if(state.userPos){drawUser();updateDistance()}
+ setTimeout(()=>state.map.invalidateSize(),150);
+}
+function drawUser(){if(!state.map||!state.userPos)return;if(state.userMarker)state.map.removeLayer(state.userMarker);state.userMarker=L.circleMarker([state.userPos.lat,state.userPos.lng],{radius:9,color:"#2676B8",fillColor:"#2676B8",fillOpacity:1}).addTo(state.map).bindPopup("Tu posición")}
+function locateMe(){if(!navigator.geolocation){toastMsg("Este navegador no ofrece GPS.");return}
+ document.getElementById("gpsStatus").textContent="Buscando posición…";
+ navigator.geolocation.getCurrentPosition(p=>{state.userPos={lat:p.coords.latitude,lng:p.coords.longitude};document.getElementById("gpsStatus").textContent="GPS localizado ±"+Math.round(p.coords.accuracy)+" m";drawUser();updateDistance();if(state.map)state.map.fitBounds([[state.userPos.lat,state.userPos.lng],[missions[state.idx].lat,missions[state.idx].lng]],{padding:[35,35]})},e=>{document.getElementById("gpsStatus").textContent="No se pudo obtener GPS";toastMsg("Activa permiso de ubicación en Safari para usar GPS real.")},{enableHighAccuracy:true,timeout:10000,maximumAge:0})}
+function hav(a,b,c,d){let R=6371000,toRad=x=>x*Math.PI/180,p1=toRad(a),p2=toRad(c),dp=toRad(c-a),dl=toRad(d-b);let q=Math.sin(dp/2)**2+Math.cos(p1)*Math.cos(p2)*Math.sin(dl/2)**2;return 2*R*Math.asin(Math.sqrt(q))}
+function updateDistance(){if(!state.userPos)return;let m=missions[state.idx],d=hav(state.userPos.lat,state.userPos.lng,m.lat,m.lng);document.getElementById("distanceText").textContent=d<1000?Math.round(d)+" m":(d/1000).toFixed(1)+" km";return d}
+function tryUnlock(){let m=missions[state.idx];if(state.demo){state.unlocked=true;toastMsg("Modo demo: llegada simulada.");openChallenge();return}
+ if(!state.userPos){toastMsg("Primero pulsa «Usar mi GPS».");return}let d=updateDistance();if(d<=m.radius){state.unlocked=true;openChallenge()}else toastMsg("Aún estás a "+Math.round(d)+" m. Debes entrar en la zona marcada.")}
+function openChallenge(){state.inChallenge=true;let m=missions[state.idx];document.getElementById("challengeZone").textContent=m.zone;document.getElementById("challengeTitle").textContent=m.title;
+ document.getElementById("challengeInstructions").innerHTML=`<h3>Qué tienes que hacer</h3>${m.steps.map(s=>`<div class="step"><div><b>${s[0]}</b><span>${s[1]}</span></div></div>`).join("")}<div class="notice"><b>Valor:</b> ${m.base} puntos. Una pista resta 20. Los errores pueden restar 10 a partir del segundo intento.</div>`;
+ renderChallengeBody();document.getElementById("feedback").innerHTML="";go("challenge")}
+function renderChallengeBody(){let m=missions[state.idx],h="";
+ if(m.type==="mcq"){h=`<h3>${m.question}</h3>${m.options.map((o,i)=>`<div class="choice" onclick="pickAnswer(this,${i})">${o}</div>`).join("")}<button class="btn" onclick="validateAnswer()">Comprobar respuesta</button>`}
+ if(m.type==="photo"){h=`<h3>Sube la foto del equipo</h3><div class="upload">📷<div class="muted">Selecciona una foto real para poder continuar.</div><input id="photoFile" type="file" accept="image/*"></div><button class="btn" onclick="validatePhoto()">Validar entrega</button><div class="notice info" style="margin-top:10px"><b>V3:</b> comprobamos que exista un archivo. La detección real de personas/monumento requiere conectar visión IA en backend.</div>`}
+ if(m.type==="memory"){h=`<h3>Memoriza esta secuencia</h3><div id="memorySeq" class="notice center" style="font-size:30px">${m.sequence}</div><button class="btn secondary" onclick="hideMemory()">Ya la he memorizado</button><div id="memoryQuestion" class="hidden"><h3>${m.question}</h3>${m.options.map((o,i)=>`<div class="choice" onclick="pickAnswer(this,${i})">${o}</div>`).join("")}<button class="btn" onclick="validateAnswer()">Comprobar</button></div>`}
+ if(m.type==="code"||m.type==="text"){h=`<h3>${m.question}</h3><input id="textAnswer" class="field" autocomplete="off"><button class="btn" onclick="validateText()">Comprobar</button>`}
+ document.getElementById("challengeBody").innerHTML=h}
+function hideMemory(){document.getElementById("memorySeq").classList.add("hidden");document.getElementById("memoryQuestion").classList.remove("hidden")}
+function pickAnswer(el,i){state.selectedAnswer=i;document.querySelectorAll(".choice").forEach(x=>x.classList.remove("selected"));el.classList.add("selected")}
+function fail(msg){state.attempts++;state.errors++;let penalty=state.attempts>=2?10:0;if(penalty)state.score=Math.max(0,state.score-penalty);document.getElementById("feedback").innerHTML=`<div class="notice badbox"><b>❌ No es correcto.</b> ${msg}${penalty?" Penalización: -10 puntos.":""}</div>`;updateTop();updateMaster()}
+function success(){let m=missions[state.idx],penalty=(state.hintsUsed>0?20:0);let award=m.base-penalty;state.score+=award;state.fragments.push(m.fragment);document.getElementById("resultBase").textContent=m.base;document.getElementById("resultPenalty").textContent=penalty?("-"+penalty):"0";document.getElementById("resultTotal").textContent=state.score;document.getElementById("fragment").textContent=m.fragment;state.hintsUsed=0;updateTop();go("result")}
+function validateAnswer(){let m=missions[state.idx];if(state.selectedAnswer===null){toastMsg("Selecciona una respuesta.");return}if(state.selectedAnswer===m.correct)success();else fail("Observa de nuevo antes de volver a intentarlo.")}
+function validateText(){let m=missions[state.idx],v=(document.getElementById("textAnswer").value||"").trim().toUpperCase().replace(/\s+/g,"");if(!v){toastMsg("Escribe una respuesta.");return}if(v===m.correctText.toUpperCase())success();else fail("La clave no coincide. Puedes pedir una pista al Game Master.")}
+function validatePhoto(){let f=document.getElementById("photoFile");if(!f.files||!f.files[0]){fail("No has seleccionado ninguna foto.");return}document.getElementById("feedback").innerHTML=`<div class="notice okbox"><b>📷 Archivo recibido.</b> En la versión comercial, visión IA comprobaría personas, monumento y requisitos. Para esta V3 se acepta al existir una foto real.</div>`;setTimeout(success,900)}
+function nextMission(){if(state.idx>=missions.length-1){go("final");return}state.idx++;renderMission();go("mission")}
+function updateTop(){document.getElementById("score").textContent=state.score;document.getElementById("hintNum").textContent=state.hintsLeft}
+function openAI(){document.getElementById("aiMissionLabel").textContent="Misión "+(state.idx+1)+": "+missions[state.idx].title;let chat=document.getElementById("chat");if(!chat.dataset.started){chat.innerHTML=`<div class="msg aiM">Hola, soy el Game Master. Sé en qué misión estás, tus errores, pistas y puntuación. Pregúntame qué hacer o pide una pista.</div>`;chat.dataset.started="1"}go("aiScreen")}
+function quickAsk(q){document.getElementById("chatInput").value=q;sendChat()}
+function sendChat(){let inp=document.getElementById("chatInput"),q=inp.value.trim();if(!q)return;let chat=document.getElementById("chat");chat.innerHTML+=`<div class="msg userM">${escapeHtml(q)}</div>`;inp.value="";let r=aiReply(q);setTimeout(()=>{chat.innerHTML+=`<div class="msg aiM">${r}</div>`;chat.scrollTop=chat.scrollHeight},250)}
+function aiReply(q){let m=missions[state.idx],x=q.toLowerCase();
+ if(x.includes("pista")){if(state.hintsLeft<=0)return "Ya no te quedan pistas gratuitas. Intenta observar de nuevo o revisa las instrucciones.";state.hintsLeft--;state.hintsUsed++;updateTop();return "💡 Pista: "+m.hint+" Te quedan "+state.hintsLeft+" pistas. Si completas la misión, esta ayuda resta 20 puntos."}
+ if(x.includes("punto")||x.includes("puntu")||x.includes("cuántos")||x.includes("cuantos"))return "Lleváis <b>"+state.score+" puntos</b>. Habéis cometido "+state.errors+" error(es) y usado "+state.hintsUsed+" pista(s) en esta misión.";
+ if(x.includes("dónde")||x.includes("donde")||x.includes("ir")||x.includes("ubic"))return "Tu destino actual es <b>"+m.zone+"</b>. "+(state.demo?"Tienes Modo demo activo: puedes simular llegada.":"Usa «Mi GPS» y entra en el círculo naranja del mapa.");
+ if(x.includes("entiendo")||x.includes("hacer")||x.includes("explica"))return "Hazlo así: <b>"+m.steps[0][0]+"</b> → "+m.steps[1][0]+" → "+m.steps[2][0]+". La misión vale "+m.base+" puntos.";
+ if(x.includes("error")||x.includes("fall"))return "Has registrado "+state.errors+" error(es). El primer fallo no resta; desde el segundo intento de una misma prueba puede aplicarse -10.";
+ if(x.includes("respuesta"))return "No puedo darte directamente la solución. Sí puedo darte una pista si me la pides; costará 20 puntos si completas esta misión.";
+ return "Puedo ayudarte con la misión actual, ubicación, reglas, puntuación o pistas. Por ejemplo: «No entiendo la prueba», «¿dónde tengo que ir?» o «Dame una pista».";
+}
+function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function showRanking(){let rivals=[["Las Leyendas",1120],["Family Power",980],["Retiro Team",840]],a=[[state.team,state.score],...rivals].sort((a,b)=>b[1]-a[1]);document.getElementById("rankingList").innerHTML=a.map((x,i)=>`<div class="rank"><span>${i+1}. ${x[0]}</span><b>${x[1]} pts</b></div>`).join("");go("ranking")}
+function checkFinalCode(){let v=(document.getElementById("finalCode").value||"").replace(/\s+/g,"");if(v==="7392"){document.getElementById("finalFeedback").innerHTML=`<div class="notice okbox"><b>✅ Código correcto.</b> El cofre se ha abierto.</div>`;document.getElementById("victory").classList.remove("hidden");document.getElementById("victoryText").textContent=state.team+" termina con "+state.score+" puntos y "+state.errors+" error(es)."}else{state.errors++;document.getElementById("finalFeedback").innerHTML=`<div class="notice badbox"><b>❌ El cofre sigue cerrado.</b> Revisa los fragmentos de las primeras cuatro misiones.</div>`;updateMaster()}}
+function updateMaster(){document.getElementById("gmScore").textContent=state.score;document.getElementById("gmErrors").textContent=state.errors;document.getElementById("gmTeamName").textContent="🟢 "+state.team;document.getElementById("gmMission").textContent="M"+(state.idx+1);document.getElementById("gmHints").textContent=3-state.hintsLeft;document.getElementById("gmMode").textContent=state.demo?"DEMO":"GPS";document.getElementById("copilotText").textContent=state.errors>=2?"El equipo acumula varios errores. Sugiero una pista contextual o revisar instrucciones antes de seguir.":state.hintsLeft===0?"Ya no quedan pistas. El monitor puede enviar una ayuda manual si se bloquean.":"Ritmo normal. No hay incidencias críticas en esta demo."}
+function resetAll(){location.reload()}
+updateMaster();
+</script>
+</body>
+</html>
